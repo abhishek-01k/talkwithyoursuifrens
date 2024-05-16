@@ -1,0 +1,22 @@
+[
+    {
+        "id": "0xa696cfa5212dbf0c836ccd6546336177311167d3f118ec0382029b0b7bf17f02",
+        "name": "My SuiFren!",
+        "description": "Capy capy",
+        "birthlocation": "JM",
+        "Cohort" : 1,
+        "Generation" : "1",
+        "birthdate": "23.05.2024 UTC 23:47",
+        "type": "Capy"
+    },
+    {
+        "id": "0xc38af41f9265386c8b952b83f60efda14fb4c16ebe6719a49f791763ddcddb5d",
+        "name": "My SuiFren!",
+        "description": "Capy 2",
+        "birthlocation": "SD",
+        "Cohort" : 1,
+        "Generation" : "2",
+        "birthdate": "23.05.2024 UTC 23:47",
+        "type": "Capy"
+    }
+]
