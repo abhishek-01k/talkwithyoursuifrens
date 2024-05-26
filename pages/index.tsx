@@ -1,118 +1,155 @@
-import Image from "next/image";
-import { Inter } from "next/font/google";
-
-const inter = Inter({ subsets: ["latin"] });
+import Canvas from "@/lib/components/Canvas";
+import { Divider, HeroCard, NewHeroCard } from "@/lib/components/Elements";
+import { useHeroesSample } from "@/lib/hooks/api";
+import { useParsedSuiOwnedObjects } from "@/lib/hooks/sui";
+import {
+  HERO_MOVE_TYPE,
+  Hero,
+  LEVEL_UP_TICKET_MOVE_TYPE,
+  LevelUpTicket,
+} from "@/lib/shared/hero";
+import { AuthContext } from "@/lib/shared/zklogin";
+import {
+  Box,
+  Button,
+  Flex,
+  HStack,
+  Heading,
+  ScaleFade,
+  Text,
+  VStack,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
+import {
+  AUTH_API_BASE,
+  LOGIN_PAGE_PATH,
+  ZkLoginUser,
+} from "@shinami/nextjs-zklogin";
+import { useZkLoginSession } from "@shinami/nextjs-zklogin/client";
+import Link from "next/link";
 
 export default function Home() {
+  const { user, isLoading: isLoadingUser } = useZkLoginSession<AuthContext>();
+
   return (
-    <main
-      className={`flex min-h-screen flex-col items-center justify-between p-24 ${inter.className}`}
-    >
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">pages/index.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-full sm:before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full sm:after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700/10 after:dark:from-sky-900 after:dark:via-[#0141ff]/40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Discover and deploy boilerplate example Next.js&nbsp;projects.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50 text-balance`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <Canvas image="/hero-select-bg.jpg" user={user}>
+      <Flex flexDir="column" align="center" gap={2}>
+        {user && <UserHome user={user} />}
+        {!user && !isLoadingUser && <AnonymousHome />}
+      </Flex>
+    </Canvas>
   );
 }
+
+const AnonymousHome = () => {
+  const { data: heroSamples } = useHeroesSample();
+  return (
+    <>
+      <VStack gap="50px">
+        <Heading size="3xl">Your SuiFrens</Heading>
+        <ScaleFade
+          initialScale={0.95}
+          transition={{ enter: { duration: 1 } }}
+          in
+        >
+          <HStack gap="82px">
+            {heroSamples?.map((hero) => (
+              <Link key={hero.id.id} href={`/heroes/${hero.id.id}`}>
+                <HeroCard name={hero.name} character={hero.character} />
+              </Link>
+            ))}
+          </HStack>
+        </ScaleFade>
+      </VStack>
+      <VStack width="1028px" gap="50px" mt="70px">
+        <Divider />
+        <VStack gap="22px">
+          <Link href={LOGIN_PAGE_PATH}>
+            <Button variant="solid">
+              <Box transform="skew(10deg)">Mint your own Suifren 🦈!</Box>
+            </Button>
+          </Link>
+        </VStack>
+      </VStack>
+    </>
+  );
+};
+
+const UserHome = ({ user }: { user: ZkLoginUser<AuthContext> }) => {
+  const { data: heroes, isLoading: isLoadingHeroes } = useParsedSuiOwnedObjects(
+    user.wallet,
+    HERO_MOVE_TYPE,
+    Hero,
+  );
+  const { data: levelUpTickets } = useParsedSuiOwnedObjects(
+    user.wallet,
+    LEVEL_UP_TICKET_MOVE_TYPE,
+    LevelUpTicket,
+  );
+
+  if (isLoadingHeroes) return <Text fontSize="30px">Loading your suifren...</Text>;
+
+  if (heroes)
+    return (
+      <>
+        {heroes.length === 0 && (
+          <VStack gap="50px">
+            <Heading size="3xl">No Suifrens yet</Heading>
+            <Link href="/heroes/new">
+              <ScaleFade
+                initialScale={0.95}
+                transition={{ enter: { duration: 1 } }}
+                in
+              >
+                <NewHeroCard />
+              </ScaleFade>
+            </Link>
+          </VStack>
+        )}
+        {heroes.length > 0 && (
+          <VStack gap="50px">
+            <Heading size="3xl">My Heroes</Heading>
+            <ScaleFade
+              initialScale={0.95}
+              transition={{ enter: { duration: 1 } }}
+              in
+            >
+              <HStack gap="82px">
+                {heroes.map((hero) => {
+                  const levelup = levelUpTickets?.find(
+                    (ticket) => ticket.hero_id === hero.id.id,
+                  );
+                  return (
+                    <Link key={hero.id.id} href={`/heroes/${hero.id.id}`}>
+                      <HeroCard
+                        name={hero.name}
+                        character={hero.character}
+                        hasLevelUpPoints={!!levelup}
+                      />
+                    </Link>
+                  );
+                })}
+              </HStack>
+            </ScaleFade>
+          </VStack>
+        )}
+        <VStack width="1028px" gap="50px" mt="70px">
+          <Divider />
+          <VStack gap="22px">
+            <Link href="/heroes/new">
+              <Button isDisabled={heroes?.length >= 3} variant="solid">
+                {heroes?.length >= 3 ? (
+                  <Box transform="skew(10deg)">Hero limit reached</Box>
+                ) : (
+                  <Box transform="skew(10deg)">Turn your suifren into hero</Box>
+                )}
+              </Button>
+            </Link>
+            <Link href={`${AUTH_API_BASE}/logout`}>
+              <Button variant="ghost">Sign out</Button>
+            </Link>
+          </VStack>
+        </VStack>
+      </>
+    );
+};
