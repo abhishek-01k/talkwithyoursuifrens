@@ -83,7 +83,7 @@ form {
   padding-top: 20px;
   border-radius: 0 0 10px 10px;
   overflow: hidden;
-} 
+}
 
 input.question-box {
   width: 85%;
@@ -91,9 +91,9 @@ input.question-box {
   font-size: 15px;
   color: #383838;
   border: none;
-} */
+}
 
-input[type=submit] {
+input[type="submit"] {
   width: 15%;
   padding: 10px;
   border: none;
@@ -111,17 +111,32 @@ input:focus {
   width: 60px;
   aspect-ratio: 4;
   background:
-      no-repeat radial-gradient(circle closest-side #383838 90%, #0000) 0% 50%,
-      no-repeat radial-gradient(circle closest-side #383838 90%, #0000) 50% 50%,
-      no-repeat radial-gradient(circle closest-side #383838 90%, #0000) 100% 50%;
-  background-size: calc(100%/ 3) 100%;
+    no-repeat radial-gradient(circle closest-side #383838 90%, #0000) 0% 50%,
+    no-repeat radial-gradient(circle closest-side #383838 90%, #0000) 50% 50%,
+    no-repeat radial-gradient(circle closest-side #383838 90%, #0000) 100% 50%;
+  background-size: calc(100% / 3) 100%;
   animation: loading 1s infinite linear;
 }
 
 @keyframes loading {
-  33%{ background-size: calc(100%/3) 0%, calc(100%/3) 100%, calc(100%/3) 100%}
-  50%{ background-size: calc(100%/3) 100%, calc(100%/3) 0%, calc(100%/3) 100%}
-  66%{ background-size: calc(100%/3) 100%, calc(100%/3) 100%, calc(100%/3) 0%}
+  33% {
+    background-size:
+      calc(100% / 3) 0%,
+      calc(100% / 3) 100%,
+      calc(100% / 3) 100%;
+  }
+  50% {
+    background-size:
+      calc(100% / 3) 100%,
+      calc(100% / 3) 0%,
+      calc(100% / 3) 100%;
+  }
+  66% {
+    background-size:
+      calc(100% / 3) 100%,
+      calc(100% / 3) 100%,
+      calc(100% / 3) 0%;
+  }
 }
 
 .prompt-suggestion-button {
