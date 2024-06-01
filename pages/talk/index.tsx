@@ -24,7 +24,7 @@ export default function Home () {
             <section className={noMessages ? "" : "populated"}>
                 {noMessages? (
                     <>
-                        <p className="starter-text">The Ultimate place to chat with your Sui Frens Capy's and Sharks!
+                        <p className="starter-text">The Ultimate place to chat with your Sui Frens Capys and Sharks!
                             Ask them anything about them including their genes , where they were born, their attributes
                             anything about them and have one to one chat with your Sui Frens
                             and it will come back with the most up-to-date answers.
